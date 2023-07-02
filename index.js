@@ -1,0 +1,403 @@
+'use strict';
+
+/*
+ *  Di lello
+ */
+
+
+let productos = [
+    {
+        id: 1,
+        nombre: 'Apple IPhone SE',
+        descripcion: 'es la actualización del iPhone 8, posee una pantalla HD Retina de 4.7 pulgadas, está potenciado por un procesador Apple A13 Bionic con 64GB de almacenamiento interno no expandible',
+        precio: 4.999,
+        imagen: 'img/celulares/Iphone.jpg',
+        categoria: 'Celulares',
+    },
+    {
+        id: 2,
+        nombre: 'Samsung Galaxy A52',
+        descripcion: 'llega con una pantalla Dynamic AMOLED 2X de 6.1 pulgadas a resolución FHD+ y tasa de refresco variable de 120Hz, procesador Exynos 2200, acompañado de 8GB de RAM con 128GB de almacenamiento interno. ',
+        precio: 2.999,
+        imagen: 'img/celulares/Samsung.jpg',
+        categoria: 'Celulares',
+    },
+    {
+        id: 3,
+        nombre: 'Motorola Edge 20 Lite',
+        descripcion: ' es el smartphone más avanzado de la serie Edge 20, con una pantalla OLED Full HD+ de 6.7 pulgadas y refresco de 144Hz, procesador Snapdragon 870 de Qualcomm acompañado de 12GB de memoria RAM y 256GB de almacenamiento interno.',
+        precio: 3.999,
+        imagen: 'img/celulares/Motorola.jpg',
+        categoria: 'Celulares',
+    },
+    {
+        id: 4,
+        nombre: 'Macbook Air',
+        descripcion: 'El chip M1 de Apple redefine nuestro portátil más fino y ligero. La CPU es hasta 3,5 veces más potente. Los gráficos, hasta cinco veces más rápidos. Un Neural Engine más avanzado llega a multiplicar por nueve la velocidad del aprendizaje automático.',
+        precio: 2.999,
+        imagen: 'img/notebook/MacbookAir.jpg',
+        categoria: 'Notebooks',
+    },
+    {
+        id: 5,
+        nombre: 'Notebook ASUS',
+        descripcion: 'En la vida hay que encontrar el equilibrio adecuado y ASUS E410 ofrece precisamente eso. Este ligero y compacto equipo tiene un elegante diseño que encaja perfectamente con tu estilo de vida dinámico, cuenta con pantalla HD de 14 pulgadas',
+        precio: 5.999,
+        imagen: 'img/notebook/NotebookAsus.jpg',
+        categoria: 'Notebooks',
+    },
+    {
+        id: 6,
+        nombre: 'Macbook Pro 13"',
+        descripcion: 'El chip M1 de Apple redefine nuestro portátil más fino y ligero. La CPU es hasta 3,5 veces más potente. Los gráficos, hasta cinco veces más rápidos. Un Neural Engine más avanzado llega a multiplicar por nueve la velocidad del aprendizaje automático. ',
+        precio: 9.999,
+        imagen: 'img/notebook/MacbookAirPro.jpg',
+        categoria: 'Notebooks',
+    },
+    {
+        id: 7,
+        nombre: 'Auriculares Samsung',
+        descripcion: 'Los auriculares diseñados para mantenerte siempre conectado. Con una forma icónica y un diseño ergonómico, que te permite escuchar el sonido ambiente natural, y un altavoz optimizado para una mejor experiencia. Sonido creado para tus oídos.',
+        precio: 999,
+        imagen: 'img/accesorios/AuricularesSamsungPro.jpg',
+        categoria: 'Accesorios',
+    },
+    {
+        id: 8,
+        nombre: 'Auriculares Apple',
+        descripcion: 'Los AirPods Pro traen un diseño ergonómico con hasta tres picos de silicona diferentes para adaptarse a tres modelos diferentes de oídos. Esto permite obtener un aislamiento de sonido ideal para que se aproveche aún mejor la apreciación de su cancelación de ruido activa',
+        precio: 1.999,
+        imagen: 'img/accesorios/Auriculares.jpg',
+        categoria: 'Accesorios',
+    },
+    {
+        id: 9,
+        nombre: 'Adaptador carga rapida', 
+        descripcion: 'Adaptador original Samsung para todos los equipos que tengan entrada USB tipo C, también incluye cable USB tipo C.',
+        precio: 2.999,
+        imagen: 'img/accesorios/AuricularesSamsung.jpg',
+        categoria: 'Accesorios',
+    },];
+
+
+window.addEventListener("load", function() {
+
+    const d = document; 
+
+    // Variables
+    let divProductos = d.getElementById("productos"),
+        divContenedor = d.createElement("div");
+
+    // Arrays del carrito
+    let arrayDelcarrito = [];
+
+    // Contadores y acumuladores
+    let contadorDeProductos = 0,
+        acumuladorDePrecios = 0;
+
+
+    let Productos = (filtro) => {
+
+        divProductos.innerHTML = "";
+
+        if ( filtro == "Todos los productos" ) {
+            for ( let datos of productos ) {
+                let divContenedor = d.createElement("div");
+                    divContenedor.dataset.id = datos.id;
+                    divContenedor.dataset.precio = datos.precio;
+                    divContenedor.dataset.categoria = datos.categoria;
+        
+                let img = d.createElement("img");
+                    img.src = datos.imagen
+                    img.dataset.id = datos.id;
+                    img.alt = datos.nombre;
+        
+                let divContenido = d.createElement("div");
+                    divContenido.className = "contenido";
+        
+                let h3Producto = d.createElement("h3");
+                    h3Producto.innerHTML = datos.nombre;
+                let pPrecio = d.createElement("p");
+                    pPrecio.innerHTML = datos.precio;
+                let pCategoria = d.createElement("p");
+                    pCategoria.innerHTML = datos.categoria;
+                let pDescipcion = d.createElement("p");
+                    pDescipcion.innerHTML = datos.descripcion;
+                    pDescipcion.className = "descripcion";
+                let buttonProducto = d.createElement("button");
+                    buttonProducto.className = "btnCarrito";
+                    buttonProducto.dataset.id = datos.id;
+                    buttonProducto.dataset.precio = datos.precio;
+                    buttonProducto.dataset.nombre = datos.nombre;
+                    buttonProducto.innerHTML = "Agregar";
+        
+                divContenedor.appendChild(img);
+                divContenedor.appendChild(divContenido);
+                    divContenido.appendChild(h3Producto);
+                    divContenido.appendChild(pPrecio);
+                    divContenido.appendChild(pDescipcion);
+                    divContenido.appendChild(pCategoria);
+                    divContenido.appendChild(buttonProducto);
+                divContenedor.appendChild(divContenido);
+        
+                divProductos.appendChild(divContenedor);
+            }
+        } else {
+
+            divProductos.innerHTML = "";
+
+            for ( let datos of productos.filter( (filtros) => filtros.categoria === filtro ) ) {
+                    let divContenedor = d.createElement("div");
+                        divContenedor.dataset.id = datos.id;
+                        divContenedor.dataset.precio = datos.precio;
+                        divContenedor.dataset.categoria = datos.categoria;
+
+                    let img = d.createElement("img");
+                        img.src = datos.imagen
+                        img.dataset.id = datos.id;
+                        img.alt = datos.nombre;
+
+                    let divContenido = d.createElement("div");
+                        divContenido.className = "contenido";
+
+                    let h3Producto = d.createElement("h3");
+                        h3Producto.innerHTML = datos.nombre;
+                    let pDescipcion = d.createElement("p");
+                        pDescipcion.innerHTML = datos.descripcion;
+                    let pPrecio = d.createElement("p");
+                        pPrecio.innerHTML = datos.precio;
+                    let pCategoria = d.createElement("p");
+                        pCategoria.innerHTML = datos.categoria;
+                    let buttonProducto = d.createElement("button");
+                        buttonProducto.className = "btnCarrito";
+                        buttonProducto.dataset.id = datos.id;
+                        buttonProducto.dataset.precio = datos.precio;
+                        buttonProducto.dataset.nombre = datos.nombre;
+                        buttonProducto.innerHTML = "Agregar";
+
+                    divContenedor.appendChild(img);
+                    divContenedor.appendChild(divContenido);
+                        divContenido.appendChild(h3Producto);
+                        divContenido.appendChild(pPrecio);
+                        divContenido.appendChild(pCategoria);
+                        divContenido.appendChild(buttonProducto);
+                    divContenedor.appendChild(divContenido);
+
+                    divProductos.appendChild(divContenedor);
+                    
+                }
+        }
+        
+        // Mostrar ventana modal
+        let btnCarrito = d.querySelectorAll(".btnCarrito");
+        for ( let i = 0; i < btnCarrito.length; i++ ) {
+            btnCarrito[i].addEventListener("click", function (e){
+                let producto = e.target;
+                agregarAlCarrito(producto);
+             });
+        }
+
+        crearVentanaModal();
+    }
+    
+    let filtros = d.querySelectorAll("#filtros a");
+    for ( let i = 0; i < filtros.length; i++ ) {
+        filtros[i].addEventListener("click", (e) => {
+            let filtro = e.target.dataset.categoria;
+            Productos(filtro);
+        }); 
+    }
+
+    // Funciones extras
+    let agregarAlCarrito = (producto) => {
+
+        let idDelProducto = producto.dataset.id;
+        let nombreDelProducto = producto.dataset.nombre;
+            console.log(nombreDelProducto)
+        let precioDelProducto = Number(producto.dataset.precio);
+        let existe = false;
+
+        let arrayDeCadaProducto = [];
+
+        for ( let datos of arrayDelcarrito ) {
+            if ( datos.id == idDelProducto ) {
+                datos.cantidad += 1;
+                existe = true;
+            }}
+
+        if ( !existe ) {
+            arrayDeCadaProducto["id"] = idDelProducto;
+            arrayDeCadaProducto["nombre"] = nombreDelProducto;
+            arrayDeCadaProducto["precio"] = precioDelProducto;
+            arrayDeCadaProducto["cantidad"] = 1;
+
+            arrayDelcarrito.push(arrayDeCadaProducto);
+        }
+        contadorDeProductos++;
+        acumuladorDePrecios += precioDelProducto;
+
+        document.querySelector(".cantidad").innerHTML = `${contadorDeProductos} ítems agregados`;
+        document.querySelector(".precio").innerHTML = `$ ${acumuladorDePrecios} es el total`;
+    }
+
+    // Funcion para crear ventana modal
+    let crearVentanaModal = () => {
+        let imgProductos = d.querySelectorAll("#productos img");
+        console.log(imgProductos)
+        for ( let i = 0; i < imgProductos.length; i++ ) {
+            imgProductos[i].addEventListener("click", (e) => {
+                let id = e.target.dataset.id;
+                let datos = obtenerDatosDelProducto(id);
+                for ( let dato of datos ) {
+                    // Ventana modal
+                    let div = d.createElement("div");
+                    div.className = "modal";
+                    div.id = "modalProducto";
+
+                    let a = d.createElement("a");
+                    a.className = "cerrar";
+                    a.href = "javascript:void(0)";
+                    a.innerHTML = "X";
+                    a.onclick = () => {
+                       d.body.removeChild(div);
+                    }
+
+                    window.onkeydown = function(e) {
+                        let tecla = e.keyCode;
+                        if ( tecla === 27 ) {
+                            d.body.removeChild(div);
+                        }
+                    }
+
+                    let img = d.createElement("img");
+                    img.src = dato.imagen;
+                    img.alt = dato.imagen;
+
+                    let h3 = d.createElement("h3");
+                    h3.innerHTML = dato.nombre;
+
+                    let pDescipcion = d.createElement("p");
+                        pDescipcion.innerHTML = dato.descripcion;
+                        pDescipcion.className = "descripcion";
+
+                    let pPrecio = d.createElement("p");
+                    pPrecio.innerHTML = `Precio: ${dato.precio}`;
+
+                    let pCategoria = d.createElement("p");
+                    pCategoria.innerHTML = dato.categoria;
+
+                    let button = d.createElement("button");
+                    button.innerHTML = "Agregar";
+                    button.dataset.id = dato.id;
+                    button.dataset.nombre = dato.nombre;
+                    button.dataset.precio = dato.precio;
+
+                    button.onclick = (e) => {
+                        let producto = e.target;
+                        agregarAlCarrito(producto);
+                    }
+
+                    div.appendChild(a);
+                    div.appendChild(img);
+                    div.appendChild(h3);
+                    div.appendChild(pDescipcion);
+                    div.appendChild(pPrecio);
+                    div.appendChild(pCategoria);
+                    div.appendChild(button);
+
+                    document.body.appendChild(div);}
+            });
+        }
+    }
+
+    let mostrarCarrito = () => {
+
+        // Este recorre el array del carrito
+        let btnCarrito = d.getElementById("btnCarrito");
+        btnCarrito.addEventListener("click", function(){
+
+            let divContenedor = d.createElement("div");
+                divContenedor.className = "modal modal-carrito";
+                divContenedor.id = "modalCarrito";
+
+            let aCerrar = d.createElement("a");
+                aCerrar.className = "cerrar";
+                aCerrar.href = "javascript:void(0)";
+                aCerrar.innerHTML = "X";
+                aCerrar.onclick = () => {
+                    document.body.removeChild(divContenedor);
+                }
+
+            let divContenedorCantidades = d.createElement("div");
+            let pCantidad = d.createElement("p");
+                pCantidad.className = "cantidad";
+                pCantidad.innerHTML = "items agregados ";
+            let spanCantidades = d.createElement("span");
+                spanCantidades.innerHTML = contadorDeProductos;
+
+            let pPrecio = d.createElement("p");
+                pPrecio.className = "precio";
+                pPrecio.innerHTML = "es el total ";
+            let spanPrecio = d.createElement("span");
+                spanPrecio.innerHTML = `$ ${acumuladorDePrecios}`;
+
+            pCantidad.appendChild(spanCantidades);
+            pPrecio.appendChild(spanPrecio);
+
+            let hr = d.createElement("hr");
+
+            let ul = d.createElement("ul");
+            for ( let datos of arrayDelcarrito ) {
+
+                let li = d.createElement("li");
+                let spanProductoPrecio = d.createElement("span");
+                let spanProductoCantidad = d.createElement("span");
+
+                let btnEliminar = d.createElement("button");
+                    btnEliminar.innerHTML = "Eliminar";
+                    btnEliminar.className = "btnEliminarUnidad"
+                    btnEliminar.dataset.id = datos.id;
+                    btnEliminar.addEventListener("click", function(e){
+                        let id = e.target.dataset.id;
+                        modificarCarrito("EliminarUnProducto", id);
+                    });
+
+                spanProductoPrecio.innerHTML = `$ ${datos.precio}`;
+                spanProductoCantidad.innerHTML = `${datos.cantidad} items`;
+                li.innerHTML = `${datos.nombre}`;
+
+                li.appendChild(spanProductoPrecio);
+                li.appendChild(spanProductoCantidad);
+                li.appendChild(btnEliminar);
+                ul.appendChild(li);
+            }
+
+            divContenedor.appendChild(aCerrar);
+            divContenedor.appendChild(pCantidad);
+            divContenedor.appendChild(pPrecio);
+            divContenedor.appendChild(hr);
+            divContenedor.appendChild(ul);
+            
+            document.body.appendChild(divContenedor);
+        });
+    }
+
+    let obtenerDatosDelProducto = (id) => {
+        let datos = productos.filter ( producto => producto.id == id ); 
+        return datos;
+    }
+
+    let modificarCarrito = (accion, id) => {
+        if ( accion === "EliminarUnProducto" ) {
+            let indiceDelProducto = arrayDelcarrito.filter( indiceFuncion );
+            function indiceFuncion(productos) {
+                return productos.id == id
+            }
+        }
+    }
+
+    // Llamada a las funciones
+    Productos("Todos los productos");
+    mostrarCarrito();
+   
+});

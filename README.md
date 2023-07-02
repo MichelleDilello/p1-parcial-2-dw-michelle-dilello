@@ -1,2 +1,5 @@
-# p1-parcial-2-dw-michelle-dilello
-Segundo Parcial Progamación 1
+MATERIA: Programación 1 
+PROFESOR: Fabrizio Carlassara 
+ALUMNA: Michelle Natasha Di lello 
+CUATRIMESTRE: 2do Cuatrimestre 
+COMISIÓN: CV TURNO: Noche
